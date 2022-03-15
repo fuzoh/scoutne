@@ -11,6 +11,7 @@
         :title='page.title'
         :path='page.path'
         :description='page.description'
+        :image='page.image'
       />
 
     </div>
@@ -28,7 +29,7 @@ export default {
 
   async asyncData({ $content }) {
     const homePages = await $content('pages')
-      .only(['title', 'path', 'description'])
+      .only(['title', 'path', 'description', 'image'])
       .limit(5)
       .where({ tags: 'home' })
       .fetch()

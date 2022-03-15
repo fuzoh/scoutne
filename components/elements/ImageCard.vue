@@ -1,6 +1,6 @@
 <template>
   <div class="card card-compact w-full bg-base-100 shadow-xl">
-    <figure><img src="https://api.lorem.space/image/shoes?w=400&h=225" alt="Shoes" /></figure>
+    <figure><nuxt-img :src="image" :alt="title" /></figure>
     <div class="card-body">
       <h2 class="card-title">{{ title }}</h2>
       <p>{{ description }}</p>
@@ -18,10 +18,7 @@ export default {
     title: String,
     path: String,
     description: String,
+    image: String
   }
 }
 </script>
-
-<style scoped>
-
-</style>

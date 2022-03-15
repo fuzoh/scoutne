@@ -3,6 +3,7 @@ title: Journée découverte du scoutisme 2022
 description: Le scoutisme c'est quoi ? et pour qui ? Nous vous l'expliquons brièvement !
 liveEdit: false
 tags: home
+image: /images/DJI_0042.jpg
 ---
 
 # Journée découverte du scoutisme 2022

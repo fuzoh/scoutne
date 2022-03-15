@@ -1,9 +1,9 @@
 <template>
   <div
-    class='hero h-96'
+    class='hero h-96 z-0'
     :style="backgroundImageStyles">
-    <div class='hero-overlay bg-opacity-60'></div>
-    <div class='hero-content text-center text-neutral-content'>
+    <div class='hero-overlay bg-opacity-40'></div>
+    <div class='hero-content text-center text-base-100'>
       <div class='max-w-md'>
         <h1 class='mb-5 text-5xl font-bold'>Aventure, amitiés et camps</h1>
         <p class='mb-5'>Découvre le monde du scoutisme Neuchâtelois, tu trouve ici les informations sur les activités et groupes scouts du canton.</p>

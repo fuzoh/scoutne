@@ -14,7 +14,14 @@ export default {
       { hid: 'description', name: 'description', content: 'Bienvenue sur le site de l\'Association du Scoutisme Neuchâtelois' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', sizes: 'any', type: 'image/png', href: '/favicon.png' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+    ],
+  },
+
+  router: {
+    ...(process.env.NODE_ENV === 'production' ? { base: '/scoutne/' } : {})
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -60,8 +67,18 @@ export default {
     fullTextSearchFields: ['title', 'tags', 'description']
   },
 
+  generate: {
+    async routes () {
+      const { $content } = require('@nuxt/content')
+      const files = await $content({ deep: true }).only(['path']).fetch()
+
+      return files.map(file => file.path === '/index' ? '/' : file.path)
+    }
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extractCSS: true,
     postcss: {
       plugins: {
         tailwindcss: {},

@@ -3,6 +3,7 @@ title: Le scoutisme
 description: Le scoutisme c'est quoi ? et pour qui ? Nous vous l'expliquons brièvement !
 liveEdit: false
 tags: home
+image: /images/DJI_0132.jpg
 ---
 
 # Le scoutisme
