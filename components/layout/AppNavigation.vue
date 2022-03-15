@@ -42,7 +42,10 @@
           <li><a>Item 3</a></li>
         </ul>
       </div>
-      <a class='btn btn-ghost normal-case text-xl'>daisyUI</a>
+      <NuxtLink
+        class='btn btn-ghost normal-case text-xl'
+        to='/'>Scoutisme Neuchâtelois
+      </NuxtLink>
     </div>
 
     <div class='navbar-center hidden lg:flex'>
@@ -70,43 +73,60 @@
     </div>
 
     <div class='navbar-end'>
-      <button class='btn btn-ghost'>
-        <svg
-          class='h-5 w-5'
-          fill='none'
-          stroke='currentColor'
-          viewBox='0 0 24 24'
-          xmlns='http://www.w3.org/2000/svg'>
-          <path
-            d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            stroke-width='2' />
-        </svg>
-      </button>
-      <button class='btn btn-ghost'>
-        <div class='indicator'>
-          <svg
-            class='h-5 w-5'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-            xmlns='http://www.w3.org/2000/svg'>
-            <path
-              d='M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              stroke-width='2' />
-          </svg>
-          <span class='badge badge-xs badge-primary indicator-item'></span>
+      <div class='dropdown dropdown-end dropdown-hover'>
+        <div class='form-control m-1'>
+          <input
+            v-model='query'
+            autocomplete='off'
+            class='input input-bordered'
+            placeholder='Search'
+            type='search'>
         </div>
-      </button>
+        <ul
+          v-if='results.length'
+          class='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+          tabindex='0'>
+          <li
+            v-for='result in results'
+            :key='result.path'>
+            <NuxtLink :to='result.path' @click.native='clear'>{{ result.title }}</NuxtLink>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppNavigation'
+  name: 'AppNavigation',
+  data() {
+    return {
+      query: '',
+      results: []
+    }
+  },
+  watch: {
+    async query(query) {
+
+      if (!query) {
+        this.results = []
+        return
+      }
+
+      this.results = await this.$content('pages')
+        .only(['title', 'path'])
+        .sortBy('createdAt', 'asc')
+        .limit(12)
+        .search(query)
+        .fetch()
+    }
+  },
+  methods: {
+    clear () {
+      this.query = ''
+      this.results = []
+    }
+  }
 }
 </script>

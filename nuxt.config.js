@@ -7,11 +7,11 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'scoutne',
+    title: 'Scoutisme Neuchâtelois',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Bienvenue sur le site de l\'Association du Scoutisme Neuchâtelois' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -31,6 +31,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
+    '@nuxt/image',
     '@nuxtjs/eslint-module',
     '@nuxt/postcss8',
   ],
@@ -50,8 +51,14 @@ export default {
     },
   },
 
+  image: {
+    // Options
+  },
+
   // Content module configuration: https://go.nuxtjs.dev/config-content
-  content: {},
+  content: {
+    fullTextSearchFields: ['title', 'tags', 'description']
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -59,6 +66,7 @@ export default {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
+        ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
       },
     },
   },
